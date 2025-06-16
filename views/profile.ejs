@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 p-4 text-white">
+
+  <!-- Container -->
+  <div class="max-w-4xl mx-auto mt-10 space-y-10">
+
+    <!-- Profile Section -->
+    <div class="bg-white/20 backdrop-blur-lg p-6 rounded-2xl shadow-2xl flex flex-col sm:flex-row items-center sm:items-start sm:space-x-8">
+      <!-- Profile Image -->
+      <img src="<%= user.image %>" alt="Profile Image" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md" />
+
+      <!-- User Info -->
+      <div class="mt-4 sm:mt-0 text-center sm:text-left">
+        <h2 class="text-3xl font-bold"><%= user.name %></h2>
+        <p class="text-lg text-white/80 mt-2">Email: <%= user.email %></p>
+        <p class="text-lg text-white/80">Age: <%= user.age %></p>
+      </div>
+    </div>
+
+    <!-- Post Section -->
+    <div class="bg-white/20 backdrop-blur-lg p-6 rounded-2xl shadow-2xl">
+      <h3 class="text-2xl font-semibold mb-4">Create a Post</h3>
+      
+      <form action="/post" method="POST" class="space-y-4">
+        <textarea name="content" rows="4" required
+                  class="w-full p-4 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-purple-300"
+                  placeholder="What's on your mind?"></textarea>
+        
+        <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">
+          Post
+        </button>
+      </form>
+    </div>
+
+    <!-- User Posts (optional dynamic section) -->
+    <% if (user.posts && user.posts.length > 0) { %>
+      <div class="space-y-4">
+        <h3 class="text-2xl font-semibold">Your Posts</h3>
+        <% user.posts.forEach(post => { %>
+          <div class="bg-white/20 backdrop-blur-lg p-4 rounded-lg shadow">
+            <p class="text-white/90"><%= post.content %></p>
+            <p class="text-sm text-white/50 mt-2">Posted on <%= post.createdAt.toDateString() %></p>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+  </div>
+
+</body>
+</html>
