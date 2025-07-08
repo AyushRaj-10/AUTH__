@@ -27,22 +27,22 @@ app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 
 cloudinary.config({
-    cloud_name: 'dpmnyh50v',
-  api_key: '474718374739793',
-  api_secret: 'xLa-KIkhkScFAcc-gWS5xtB-Di8',
+    cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 })
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "ayushrajranjan10@gmail.com",
-      pass: "wpfrfhoqwhcrbwgt",
+      user: process.env.GMAIL,
+      pass: process.env.APP_PASS,
     },
   });
 
   const sendEmail = async (to, subject, html) => {
     await transporter.sendMail({
-      from: `"Auth App" <ayushrajranjan10@gmail.com>`,
+      from: `"Auth App" ${process.env.GMAIL} ` ,
       to,
       subject,
       html,
